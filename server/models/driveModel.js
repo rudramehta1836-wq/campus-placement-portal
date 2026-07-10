@@ -41,7 +41,13 @@ const driveSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Recruiter",
         required: true
+    },
+    applicants: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Student"
     }
+]
 
 },
     {

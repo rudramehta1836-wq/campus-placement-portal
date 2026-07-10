@@ -7,7 +7,10 @@ const protect = require("../middleware/authMiddleware");
 const recruiterOnly = require("../middleware/recruiterMiddleware");
 
 const {
-    createDrive
+    createDrive,
+    getAllDrives,
+    getDriveById,
+    updateDrive
 } = require("../controllers/driveController");
 
 router.post(
@@ -16,5 +19,8 @@ router.post(
     recruiterOnly,
     createDrive
 );
+router.get("/", getAllDrives);
+router.get("/:id", getDriveById);
+router.put("/:id", protect, recruiterOnly, updateDrive);
 
 module.exports = router;
