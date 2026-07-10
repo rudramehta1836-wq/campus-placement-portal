@@ -1,4 +1,5 @@
 require("dotenv").config();
+const driveRoutes = require("./routes/driveRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const recruiterRoutes = require("./routes/recruiterRoutes");
 const connectDB = require("./config/db");
@@ -12,6 +13,7 @@ connectDB();
 app.use(express.json());
 app.use("/api/students", studentRoutes);
 app.use("/api/recruiters", recruiterRoutes);
+app.use("/api/drives", driveRoutes);
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
