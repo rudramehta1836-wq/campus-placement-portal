@@ -1,4 +1,5 @@
 require("dotenv").config();
+const path = require("path");
 const driveRoutes = require("./routes/driveRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const recruiterRoutes = require("./routes/recruiterRoutes");
@@ -11,6 +12,7 @@ app.get('/', (req, res) => {
 });
 connectDB();
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/students", studentRoutes);
 app.use("/api/recruiters", recruiterRoutes);
 app.use("/api/drives", driveRoutes);

@@ -216,10 +216,46 @@ const updateStudentProfile = async (req, res) => {
     }
 
 };
+const uploadResume = async (req, res) => {
+
+    try {
+
+        if (!req.file) {
+
+            return res.status(400).json({
+                success: false,
+                message: "Please upload a resume"
+            });
+
+        }
+
+        const student = await Student.findById(req.student.id);
+
+        student.resume = req.file.path;
+
+        await student.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Resume uploaded successfully",
+            resume: student.resume
+        });
+
+    } catch (error) {
+
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+
+};
 
 module.exports = {
     registerStudent,
     loginStudent,
     getStudentProfile,
-    updateStudentProfile
+    updateStudentProfile,
+    uploadResume
 };
