@@ -5,12 +5,16 @@ const router = express.Router();
 const protect = require("../middleware/authMiddleware");
 
 const recruiterOnly = require("../middleware/recruiterMiddleware");
+const studentOnly = require("../middleware/studentMiddleware");
 
 const {
     createDrive,
     getAllDrives,
     getDriveById,
-    updateDrive
+    updateDrive,
+    deleteDrive,
+    applyToDrive,
+    getDriveApplicants
 } = require("../controllers/driveController");
 
 router.post(
@@ -22,5 +26,12 @@ router.post(
 router.get("/", getAllDrives);
 router.get("/:id", getDriveById);
 router.put("/:id", protect, recruiterOnly, updateDrive);
-
+router.delete("/:id", protect, deleteDrive);
+router.post(
+    "/:id/apply",
+    protect,
+    studentOnly,
+    applyToDrive
+);
+router.get("/:id/applicants", protect, recruiterOnly, getDriveApplicants);
 module.exports = router;

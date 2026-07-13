@@ -225,11 +225,107 @@ const applyToDrive = async (req, res) => {
     }
 
 };
+const deleteDrive = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        const drive = await Drive.findById(id);
+
+        if (!drive) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Drive not found"
+            });
+
+        }
+
+        if (drive.createdBy.toString() !== req.student.id) {
+
+            return res.status(403).json({
+                success: false,
+                message: "You can delete only your own drives"
+            });
+
+        }
+
+        await Drive.findByIdAndDelete(id);
+
+        return res.status(200).json({
+            success: true,
+            message: "Drive deleted successfully"
+        });
+
+    } catch (error) {
+
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+
+};
+const getDriveApplicants = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        const drive = await Drive.findById(id)
+            .populate(
+                "applicants",
+                "name email rollNumber branch cgpa"
+            );
+
+        if (!drive) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Drive not found"
+            });
+
+        }
+
+        if (drive.createdBy.toString() !== req.student.id) {
+
+            return res.status(403).json({
+                success: false,
+                message: "You can only view applicants for your own drives"
+            });
+
+        }
+
+        return res.status(200).json({
+
+            success: true,
+
+            applicants: drive.applicants
+
+        });
+
+    } catch (error) {
+
+        return res.status(500).json({
+
+            success: false,
+
+            message: error.message
+
+        });
+
+    }
+
+};
 
 module.exports = {
     createDrive,
     getAllDrives,
     getDriveById,
     updateDrive,
-    applyToDrive
+    applyToDrive,
+    deleteDrive,
+    getDriveApplicants
 };
