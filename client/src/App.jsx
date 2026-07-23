@@ -11,44 +11,71 @@ import RecruiterDashboard from "./pages/recruiter/RecruiterDashboard";
 import CreateDrive from "./pages/recruiter/CreateDrive";
 import Applicants from "./pages/recruiter/Applicants";
 
+import ProtectedRoute from "./routes/ProtectedRoutes";
+
 function App() {
   return (
     <Routes>
 
+      {/* Public Routes */}
       <Route path="/" element={<Login />} />
-
       <Route path="/login" element={<Login />} />
-
       <Route path="/register" element={<Register />} />
 
+      {/* Student Routes */}
       <Route
         path="/student/dashboard"
-        element={<StudentDashboard />}
+        element={
+          <ProtectedRoute role="student">
+            <StudentDashboard />
+          </ProtectedRoute>
+        }
       />
 
       <Route
         path="/student/profile"
-        element={<StudentProfile />}
+        element={
+          <ProtectedRoute role="student">
+            <StudentProfile />
+          </ProtectedRoute>
+        }
       />
 
       <Route
         path="/student/drives"
-        element={<Drives />}
+        element={
+          <ProtectedRoute role="student">
+            <Drives />
+          </ProtectedRoute>
+        }
       />
 
+      {/* Recruiter Routes */}
       <Route
         path="/recruiter/dashboard"
-        element={<RecruiterDashboard />}
+        element={
+          <ProtectedRoute role="recruiter">
+            <RecruiterDashboard />
+          </ProtectedRoute>
+        }
       />
 
       <Route
         path="/recruiter/create-drive"
-        element={<CreateDrive />}
+        element={
+          <ProtectedRoute role="recruiter">
+            <CreateDrive />
+          </ProtectedRoute>
+        }
       />
 
       <Route
         path="/recruiter/applicants"
-        element={<Applicants />}
+        element={
+          <ProtectedRoute role="recruiter">
+            <Applicants />
+          </ProtectedRoute>
+        }
       />
 
     </Routes>

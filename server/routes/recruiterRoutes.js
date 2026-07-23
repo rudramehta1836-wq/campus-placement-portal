@@ -1,4 +1,6 @@
 const express = require("express");
+const protect = require("../middleware/authMiddleware");
+const recruiterOnly = require("../middleware/recruiterMiddleware");
 
 const router = express.Router();
 
