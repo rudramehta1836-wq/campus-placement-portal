@@ -14,7 +14,8 @@ const {
     updateDrive,
     deleteDrive,
     applyToDrive,
-    getDriveApplicants
+    getDriveApplicants,
+    updateApplicationStatus
 } = require("../controllers/driveController");
 
 router.post(
@@ -32,6 +33,12 @@ router.post(
     protect,
     studentOnly,
     applyToDrive
+);
+router.put(
+    "/:driveId/applicants/:studentId/status",
+    protect,
+    recruiterOnly,
+    updateApplicationStatus
 );
 router.get("/:id/applicants", protect, recruiterOnly, getDriveApplicants);
 module.exports = router;

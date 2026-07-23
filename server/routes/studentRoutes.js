@@ -8,7 +8,8 @@ const { registerStudent,
     loginStudent,
     getStudentProfile,
     updateStudentProfile,
-    uploadResume } = require("../controllers/studentController");
+    uploadResume,
+    getStudentDashboard } = require("../controllers/studentController");
 router.post("/register", registerStudent);
 router.post("/login", loginStudent);
 router.get("/profile", protect, getStudentProfile);
@@ -19,5 +20,11 @@ router.put(
     studentOnly,
     upload.single("resume"),
     uploadResume
+);
+router.get(
+    "/dashboard",
+    protect,
+    studentOnly,
+    getStudentDashboard
 );
 module.exports = router;

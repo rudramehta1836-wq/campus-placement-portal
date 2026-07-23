@@ -175,7 +175,6 @@ const updateDrive = async (req, res) => {
 
 };
 const applyToDrive = async (req, res) => {
-
     try {
 
         const { id } = req.params;
@@ -183,47 +182,42 @@ const applyToDrive = async (req, res) => {
         const drive = await Drive.findById(id);
 
         if (!drive) {
-
             return res.status(404).json({
                 success: false,
                 message: "Drive not found"
             });
-
         }
 
-        if (drive.applicants.includes(req.student.id)) {
+        const alreadyApplied = drive.applicants.find(
+            applicant => applicant.student.toString() === req.student.id
+        );
 
+        if (alreadyApplied) {
             return res.status(400).json({
                 success: false,
-                message: "You have already applied"
+                message: "You have already applied to this drive"
             });
-
         }
 
-        drive.applicants.push(req.student.id);
+        drive.applicants.push({
+            student: req.student.id
+        });
 
         await drive.save();
 
         return res.status(200).json({
-
             success: true,
             message: "Applied Successfully"
-
         });
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         return res.status(500).json({
-
             success: false,
             message: error.message
-
         });
 
     }
-
 };
 const deleteDrive = async (req, res) => {
 
@@ -269,55 +263,94 @@ const deleteDrive = async (req, res) => {
 
 };
 const getDriveApplicants = async (req, res) => {
-
     try {
 
         const { id } = req.params;
 
-        const drive = await Drive.findById(id)
-            .populate(
-                "applicants",
-                "name email rollNumber branch cgpa"
-            );
+        const drive = await Drive.findById(id).populate({
+            path: "applicants.student",
+            select: "name email rollNumber branch cgpa resume"
+        });
 
         if (!drive) {
-
             return res.status(404).json({
                 success: false,
                 message: "Drive not found"
             });
-
         }
 
         if (drive.createdBy.toString() !== req.student.id) {
-
             return res.status(403).json({
                 success: false,
                 message: "You can only view applicants for your own drives"
             });
-
         }
 
         return res.status(200).json({
-
             success: true,
-
             applicants: drive.applicants
-
         });
 
     } catch (error) {
 
         return res.status(500).json({
-
             success: false,
-
             message: error.message
-
         });
 
     }
+};
+const updateApplicationStatus = async (req, res) => {
+    try {
 
+        const { driveId, studentId } = req.params;
+        const { status } = req.body;
+
+        const drive = await Drive.findById(driveId);
+
+        if (!drive) {
+            return res.status(404).json({
+                success: false,
+                message: "Drive not found"
+            });
+        }
+
+        if (drive.createdBy.toString() !== req.student.id) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not authorized to update this drive"
+            });
+        }
+
+        const applicant = drive.applicants.find(
+            applicant => applicant.student.toString() === studentId
+        );
+
+        if (!applicant) {
+            return res.status(404).json({
+                success: false,
+                message: "Applicant not found"
+            });
+        }
+
+        applicant.status = status;
+
+        await drive.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Application status updated successfully",
+            applicant
+        });
+
+    } catch (error) {
+
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
 };
 
 module.exports = {
@@ -327,5 +360,6 @@ module.exports = {
     updateDrive,
     applyToDrive,
     deleteDrive,
-    getDriveApplicants
+    getDriveApplicants,
+    updateApplicationStatus
 };

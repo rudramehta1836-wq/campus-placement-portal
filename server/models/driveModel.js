@@ -43,11 +43,24 @@ const driveSchema = new mongoose.Schema({
         required: true
     },
     applicants: [
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Student"
-    }
-]
+        {
+            student: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Student"
+            },
+            status: {
+                type: String,
+                enum: [
+                    "Applied",
+                    "Shortlisted",
+                    "Interview",
+                    "Selected",
+                    "Rejected"
+                ],
+                default: "Applied"
+            }
+        }
+    ]
 
 },
     {

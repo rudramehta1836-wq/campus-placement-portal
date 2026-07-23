@@ -251,11 +251,87 @@ const uploadResume = async (req, res) => {
     }
 
 };
+const getStudentDashboard = async (req, res) => {
+    try {
+
+        const drives = await Drive.find({
+            "applicants.student": req.student.id
+        });
+
+        let applied = 0;
+        let shortlisted = 0;
+        let interview = 0;
+        let selected = 0;
+        let rejected = 0;
+
+        drives.forEach((drive) => {
+
+            drive.applicants.forEach((applicant) => {
+
+                if (applicant.student.toString() === req.student.id) {
+
+                    switch (applicant.status) {
+
+                        case "Applied":
+                            applied++;
+                            break;
+
+                        case "Shortlisted":
+                            shortlisted++;
+                            break;
+
+                        case "Interview":
+                            interview++;
+                            break;
+
+                        case "Selected":
+                            selected++;
+                            break;
+
+                        case "Rejected":
+                            rejected++;
+                            break;
+
+                    }
+
+                }
+
+            });
+
+        });
+
+        const totalApplications =
+            applied +
+            shortlisted +
+            interview +
+            selected +
+            rejected;
+
+        return res.status(200).json({
+            success: true,
+            totalApplications,
+            applied,
+            shortlisted,
+            interview,
+            selected,
+            rejected
+        });
+
+    } catch (error) {
+
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+};
 
 module.exports = {
     registerStudent,
     loginStudent,
     getStudentProfile,
     updateStudentProfile,
-    uploadResume
+    uploadResume,
+    getStudentDashboard
 };
