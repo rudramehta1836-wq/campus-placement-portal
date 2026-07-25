@@ -178,14 +178,14 @@ function Applicants() {
                                             <td style={{ padding: "16px 12px" }}>
                                                 <span style={{ 
                                                     padding: "4px 10px", borderRadius: "12px", fontSize: "12px", fontWeight: "600",
-                                                    backgroundColor: app.status === "applied" ? "rgba(255,255,255,0.1)" : 
-                                                                     app.status === "shortlisted" ? "rgba(245, 158, 11, 0.2)" : 
-                                                                     app.status === "interview" ? "rgba(59, 130, 246, 0.2)" : 
-                                                                     app.status === "selected" ? "rgba(16, 185, 129, 0.2)" : "rgba(239, 68, 68, 0.2)",
-                                                    color: app.status === "applied" ? "var(--text-main)" : 
-                                                           app.status === "shortlisted" ? "#f59e0b" : 
-                                                           app.status === "interview" ? "#3b82f6" : 
-                                                           app.status === "selected" ? "#10b981" : "#ef4444"
+                                                    backgroundColor: app.status === "Applied" ? "rgba(255,255,255,0.1)" : 
+                                                                     app.status === "Shortlisted" ? "rgba(245, 158, 11, 0.2)" : 
+                                                                     app.status === "Interview" ? "rgba(59, 130, 246, 0.2)" : 
+                                                                     app.status === "Selected" ? "rgba(16, 185, 129, 0.2)" : "rgba(239, 68, 68, 0.2)",
+                                                    color: app.status === "Applied" ? "var(--text-main)" : 
+                                                           app.status === "Shortlisted" ? "#f59e0b" : 
+                                                           app.status === "Interview" ? "#3b82f6" : 
+                                                           app.status === "Selected" ? "#10b981" : "#ef4444"
                                                 }}>
                                                     {app.status.toUpperCase()}
                                                 </span>
@@ -199,11 +199,11 @@ function Applicants() {
                                                         color: "var(--text-main)", border: "1px solid rgba(255,255,255,0.1)", outline: "none", cursor: "pointer"
                                                     }}
                                                 >
-                                                    <option value="applied">Applied</option>
-                                                    <option value="shortlisted">Shortlisted</option>
-                                                    <option value="interview">Interview</option>
-                                                    <option value="selected">Selected</option>
-                                                    <option value="rejected">Rejected</option>
+                                                    <option value="Applied">Applied</option>
+                                                    <option value="Shortlisted">Shortlisted</option>
+                                                    <option value="Interview">Interview</option>
+                                                    <option value="Selected">Selected</option>
+                                                    <option value="Rejected">Rejected</option>
                                                 </select>
                                             </td>
                                         </tr>

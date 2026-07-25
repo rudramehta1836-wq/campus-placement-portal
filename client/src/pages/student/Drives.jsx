@@ -42,7 +42,7 @@ function Drives() {
             setDrives(prevDrives => prevDrives.map(d => {
                 if (d._id === driveId) {
                     // We append a fake applicant entry matching the student's ID so the UI detects it
-                    return { ...d, applicants: [...(d.applicants || []), { student: studentId, status: "applied" }] };
+                    return { ...d, applicants: [...(d.applicants || []), { student: studentId, status: "Applied" }] };
                 }
                 return d;
             }));
