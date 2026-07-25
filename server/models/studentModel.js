@@ -48,9 +48,11 @@ const studentSchema = new mongoose.Schema({
         type: String,
         default: "student"
     },
-    resume: {
+    
+    rollNumber: {
         type: String,
-        default: ""
+        required: true,
+        unique: true
     }
 
 }, {

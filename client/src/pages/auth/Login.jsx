@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../../services/api";
 
 function Login() {
@@ -82,6 +82,9 @@ function Login() {
                 <button onClick={handleLogin}>
                     Sign In
                 </button>
+                <p style={{ textAlign: "center", marginTop: "1.5rem", color: "var(--text-muted)", fontSize: "14px" }}>
+                    Don't have an account? <Link to="/register" style={{ color: "var(--primary-color)", textDecoration: "none", fontWeight: "600" }}>Sign Up</Link>
+                </p>
             </div>
         </div>
     );
