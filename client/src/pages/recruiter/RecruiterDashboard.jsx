@@ -34,11 +34,15 @@ function RecruiterDashboard() {
                 setStats(response.data);
                 setLoading(false);
             } catch (error) {
-                console.error("Error fetching dashboard data", error);
-                // If token is invalid or expired, log them out
-                localStorage.removeItem("token");
-                localStorage.removeItem("role");
-                navigate("/login");
+                console.error("Failed to fetch dashboard data:", error);
+                // Only log out if it's an authentication error (401 or 403)
+                if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("role");
+                    navigate("/login");
+                } else {
+                    setLoading(false);
+                }
             }
         };
 
