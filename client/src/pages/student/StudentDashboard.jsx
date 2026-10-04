@@ -125,6 +125,13 @@ function StudentDashboard() {
                     <button onClick={() => navigate("/student/drives")} style={{ marginTop: "auto", backgroundColor: "var(--primary-color)", width: "100%" }}>Browse Drives</button>
                 </div>
 
+                {/* Card 4: AI Resume Match */}
+                <div className="auth-card" style={{ padding: "30px", maxWidth: "100%", textAlign: "left", display: "flex", flexDirection: "column" }}>
+                    <h2 style={{ fontSize: "22px", marginBottom: "12px", color: "var(--text-main)" }}>AI Resume Match ✨</h2>
+                    <p style={{ color: "var(--text-muted)", marginBottom: "24px" }}>Analyze your resume against job descriptions to identify missing skills and get tailored suggestions.</p>
+                    <button onClick={() => navigate("/student/ai-match")} style={{ marginTop: "auto", backgroundColor: "#10b981", width: "100%" }}>Analyze Match</button>
+                </div>
+
             </div>
         </div>
     );

@@ -6,6 +6,7 @@ import Register from "./pages/auth/Register";
 import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentProfile from "./pages/student/StudentProfile";
 import Drives from "./pages/student/Drives";
+import AiResumeMatch from "./pages/student/AiResumeMatch";
 
 import RecruiterDashboard from "./pages/recruiter/RecruiterDashboard";
 import CreateDrive from "./pages/recruiter/CreateDrive";
@@ -46,6 +47,15 @@ function App() {
         element={
           <ProtectedRoute role="student">
             <Drives />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/student/ai-match"
+        element={
+          <ProtectedRoute role="student">
+            <AiResumeMatch />
           </ProtectedRoute>
         }
       />

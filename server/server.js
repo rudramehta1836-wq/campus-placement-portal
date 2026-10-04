@@ -3,6 +3,7 @@ const path = require("path");
 const driveRoutes = require("./routes/driveRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const recruiterRoutes = require("./routes/recruiterRoutes");
+const aiRoutes = require("./routes/aiRoutes");
 const connectDB = require("./config/db");
 const express = require('express');
 const app = express();
@@ -18,6 +19,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/students", studentRoutes);
 app.use("/api/recruiters", recruiterRoutes);
 app.use("/api/drives", driveRoutes);
+app.use("/api/ai", aiRoutes);
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
